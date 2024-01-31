@@ -1,16 +1,44 @@
-# This is a sample Python script.
+import cv2
+from PIL import Image
+import pytesseract
+import re
 
-# Press Shift+F10 to execute it or replace it with your code.
-# Press Double Shift to search everywhere for classes, files, tool windows, actions, and settings.
+pytesseract.pytesseract.tesseract_cmd = r'C:\Program Files\Tesseract-OCR\tesseract.exe'
+
+video_path = 'vid/20240130162559_000927.MP4'
+cap = cv2.VideoCapture(video_path)
+
+roi_x, roi_y, roi_width, roi_height = 130, 1390, 390, 30
+
+coords_array = []
+coords_dict = {}
 
 
-def print_hi(name):
-    # Use a breakpoint in the code line below to debug your script.
-    print(f'Hi, {name}')  # Press Ctrl+F8 to toggle the breakpoint.
+def extract_text(video_frame):
+    roi = video_frame[roi_y:roi_y+roi_height, roi_x:roi_x+roi_width]
+    pil_roi = Image.fromarray(cv2.cvtColor(roi, cv2.COLOR_BGR2RGB))
+    text = pytesseract.image_to_string(pil_roi, config='--psm 6')
+
+    allowed_chars = r'[0-9.NW]'
+    alphanumeric_text = re.sub(fr'[^{allowed_chars}]', '', text)
+
+    return alphanumeric_text.strip().replace('/', '')
 
 
-# Press the green button in the gutter to run the script.
-if __name__ == '__main__':
-    print_hi('PyCharm')
+while cap.isOpened():
 
-# See PyCharm help at https://www.jetbrains.com/help/pycharm/
+    cap.set(cv2.CAP_PROP_POS_MSEC, cap.get(cv2.CAP_PROP_POS_MSEC) + 1000)
+
+    ret, frame = cap.read()
+
+    if not ret:
+        break
+
+    extracted_text = extract_text(frame)
+    coords_array.append(extracted_text)
+
+cap.release()
+cv2.destroyAllWindows()
+
+for i, coords in enumerate(coords_array):
+    print(f"Second {i+1}: {coords}")
