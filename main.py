@@ -3,6 +3,7 @@ from PIL import Image
 import pytesseract
 import re
 import CamData
+import time
 
 pytesseract.pytesseract.tesseract_cmd = r'C:\Program Files\Tesseract-OCR\tesseract.exe'
 
@@ -14,7 +15,18 @@ secondDelay = 5
 
 CamDataArray = []
 
-def extract_text(video_frame):
+
+def timer(func):
+    def wrapper(*args, **kwargs):
+        startTime = time.time()
+        result = func(*args, **kwargs)
+        endTime = time.time()
+        print(f"Text extraction process took {endTime - startTime:.2f} seconds.")
+        return result
+    return wrapper
+
+
+def extractText(video_frame):
     roi = video_frame[roi_y:roi_y+roi_height, roi_x:roi_x+roi_width]
     pil_roi = Image.fromarray(cv2.cvtColor(roi, cv2.COLOR_BGR2RGB))
     text = pytesseract.image_to_string(pil_roi, config='--psm 6')
@@ -25,23 +37,28 @@ def extract_text(video_frame):
     return alphanumeric_text.strip().replace('/', '')
 
 
-secondCounter = 0
-while cap.isOpened():
+@timer
+def start():
+    secondCounter = 0
+    while cap.isOpened():
 
-    cap.set(cv2.CAP_PROP_POS_MSEC, cap.get(cv2.CAP_PROP_POS_MSEC) + 1000 * secondDelay)
+        cap.set(cv2.CAP_PROP_POS_MSEC, cap.get(cv2.CAP_PROP_POS_MSEC) + 1000 * secondDelay)
 
-    ret, frame = cap.read()
-    secondCounter += secondDelay
+        ret, frame = cap.read()
+        secondCounter += secondDelay
 
-    if not ret:
-        break
+        if not ret:
+            break
 
-    extracted_text = extract_text(frame)
-    extracted_lat, extracted_lon = extracted_text.split(sep=" ")
-    CamDataArray.append(CamData.CamData(secondCounter, extracted_lat, extracted_lon))
+        extractedText = extractText(frame)
+        extractedLat, extractedLon = extractedText.split(sep=" ")
+        CamDataArray.append(CamData.CamData(secondCounter, extractedLat, extractedLon))
 
-cap.release()
-cv2.destroyAllWindows()
+    cap.release()
+    cv2.destroyAllWindows()
+
+
+start()
 
 for data in CamDataArray:
-    print(data.printData())
+    print(data.getLoc())
