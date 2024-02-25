@@ -27,7 +27,7 @@ class Mapper:
             time, lat, lon = point
             folium.Marker(
                 location=(lat, lon),
-                popup=f"{time} seconds in: @ {(lat, lon)}",
+                popup=f"<div style='font-size: 16px;'>{f"{time} seconds in: @ {(lat, lon)}"}</div>",
                 icon=folium.Icon(color='red')
             ).add_to(myMap)
 

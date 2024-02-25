@@ -22,9 +22,12 @@ class CamData:
             negativeLon = True
         if self.latDir == "W":
             negativeLat = True
-        formattedLon = float(("-" if negativeLon else "") + self.lon)
-        formattedLat = float(("-" if negativeLat else "") + self.lat)
-        return (self.getTime(), formattedLon, formattedLat)
+        try:
+            formattedLon = float(("-" if negativeLon else "") + self.lon)
+            formattedLat = float(("-" if negativeLat else "") + self.lat)
+            return (self.getTime(), formattedLon, formattedLat)
+        except ValueError:
+            return None
 
     def printData(self):
         return f"At second {self.time}, vehicle is at {self.lon} degrees {self.lonDir} latitude, and {self.lat} degrees {self.latDir} longitude"

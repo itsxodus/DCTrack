@@ -4,11 +4,10 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="65001bcf-ba86-40f1-a12c-52ac9412b581" name="Changes" comment="CamData updated, added timer wrapper function, data printed out in a python list">
-      <change afterPath="$PROJECT_DIR$/Mapper.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+    <list default="true" id="65001bcf-ba86-40f1-a12c-52ac9412b581" name="Changes" comment="Mapper class added; folium used for visual map representation; path with points present on map">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/CamData.py" beforeDir="false" afterPath="$PROJECT_DIR$/CamData.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Mapper.py" beforeDir="false" afterPath="$PROJECT_DIR$/Mapper.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/main.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -138,7 +137,15 @@
       <option name="project" value="LOCAL" />
       <updated>1708881813094</updated>
     </task>
-    <option name="localTasksCounter" value="5" />
+    <task id="LOCAL-00005" summary="Mapper class added; folium used for visual map representation; path with points present on map">
+      <option name="closed" value="true" />
+      <created>1708889715318</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1708889715318</updated>
+    </task>
+    <option name="localTasksCounter" value="6" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -146,19 +153,7 @@
       <map>
         <entry key="MAIN">
           <value>
-            <State>
-              <option name="FILTERS">
-                <map>
-                  <entry key="branch">
-                    <value>
-                      <list>
-                        <option value="master" />
-                      </list>
-                    </value>
-                  </entry>
-                </map>
-              </option>
-            </State>
+            <State />
           </value>
         </entry>
       </map>
@@ -168,6 +163,7 @@
     <MESSAGE value="Initial commit" />
     <MESSAGE value="Functionality including parsing, and object-oriented behavior present" />
     <MESSAGE value="CamData updated, added timer wrapper function, data printed out in a python list" />
-    <option name="LAST_COMMIT_MESSAGE" value="CamData updated, added timer wrapper function, data printed out in a python list" />
+    <MESSAGE value="Mapper class added; folium used for visual map representation; path with points present on map" />
+    <option name="LAST_COMMIT_MESSAGE" value="Mapper class added; folium used for visual map representation; path with points present on map" />
   </component>
 </project>
